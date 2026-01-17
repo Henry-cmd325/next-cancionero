@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0B0E14;
+  /* Midnight Blue */
+  --foreground: #E2E8F0;
+  --card: #151A23;
+  --primary: #2563EB;
+  /* Vivid Blue */
+  --secondary: #64748B;
+  --border: #1E293B;
+
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "Fira Code", monospace;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-border: var(--border);
+}
