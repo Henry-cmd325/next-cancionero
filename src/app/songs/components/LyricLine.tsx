@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Chord } from '../utils/chordUtils';
+import { CHAR_WIDTH, Chord } from '../utils/chordUtils';
 import { ChordBadge } from './ChordBadge';
 
 type LyricLineProps = {
@@ -9,7 +9,6 @@ type LyricLineProps = {
     text: string;
     chords: Chord[];
     onDeleteChord: (id: string) => void;
-    onMoveChord?: (id: string, line: number, position: number) => void;
     onDropChord: (lineIndex: number, position: number, chordName: string) => void;
     isChordMode: boolean;
     draggedChord: string | null;
@@ -20,7 +19,6 @@ export function LyricLine({
     text,
     chords,
     onDeleteChord,
-    onMoveChord,
     onDropChord,
     isChordMode,
     draggedChord
@@ -42,8 +40,7 @@ export function LyricLine({
 
         const rect = e.currentTarget.getBoundingClientRect();
         const x = e.clientX - rect.left;
-        const charWidth = 8.4;
-        const position = Math.max(0, Math.round(x / charWidth));
+        const position = Math.round(x / CHAR_WIDTH);
 
         onDropChord(lineIndex, position, draggedChord);
     };
@@ -66,14 +63,13 @@ export function LyricLine({
                         key={chord.id}
                         className="absolute"
                         style={{
-                            left: `${chord.position * 8.4}px`,
+                            left: `${chord.position * CHAR_WIDTH}px`,
                             top: 0
                         }}
                     >
                         <ChordBadge
                             chord={chord}
                             onDelete={onDeleteChord}
-                            onMove={onMoveChord}
                             isDraggable={false}
                         />
                     </div>

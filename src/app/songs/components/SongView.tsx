@@ -1,7 +1,7 @@
 'use client';
 
 import { createSong, updateSong } from '@/app/songs/actions';
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ChordSidebar } from './ChordSidebar';
@@ -43,7 +43,6 @@ export function SongView({ song, isInitialEdit = false }: SongViewProps) {
     });
 
     const [draggedChord, setDraggedChord] = useState<string | null>(null);
-    const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     const handleSave = async () => {
         if (!formData.title || !formData.artist || !lyrics) {
@@ -81,11 +80,15 @@ export function SongView({ song, isInitialEdit = false }: SongViewProps) {
         setChords(chords.filter(chord => chord.id !== id));
     };
 
-    const handleMoveChord = (id: string, line: number, position: number) => {
-        setChords(chords.map(chord =>
-            chord.id === id ? { ...chord, line, position } : chord
-        ));
-    };
+    const handleDropChord = (lineIndex: number, position: number, chordName: string) => {
+        const newChord: Chord = {
+            id: generateChordId(),
+            name: chordName,
+            line: lineIndex,
+            position
+        };
+        setChords(prevChords => [...prevChords, newChord]);
+    }
 
     // Render content based on mode
     const renderContent = () => {
@@ -107,7 +110,6 @@ export function SongView({ song, isInitialEdit = false }: SongViewProps) {
         if (editorMode === 'text') {
             return (
                 <textarea
-                    ref={textareaRef}
                     value={lyrics}
                     onChange={(e) => setLyrics(e.target.value)}
                     className="w-full h-full min-h-[450px] bg-transparent text-slate-300 font-mono text-sm leading-relaxed outline-none resize-none placeholder:text-slate-700"
@@ -126,16 +128,7 @@ export function SongView({ song, isInitialEdit = false }: SongViewProps) {
                         text={line}
                         chords={chords}
                         onDeleteChord={handleDeleteChord}
-                        onMoveChord={handleMoveChord}
-                        onDropChord={(lineIndex, position, chordName) => {
-                            const newChord: Chord = {
-                                id: generateChordId(),
-                                name: chordName,
-                                line: lineIndex,
-                                position
-                            };
-                            setChords([...chords, newChord]);
-                        }}
+                        onDropChord={handleDropChord}
                         isChordMode={true}
                         draggedChord={draggedChord}
                     />

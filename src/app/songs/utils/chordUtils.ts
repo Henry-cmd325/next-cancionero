@@ -1,5 +1,4 @@
 // Chord data types and utilities
-
 export type Chord = {
     id: string;
     name: string;
@@ -11,6 +10,9 @@ export type SongContent = {
     lyrics: string;
     chords: Chord[];
 };
+
+export const CHAR_WIDTH = 8.4;
+export const LINE_HEIGHT = 24;
 
 /**
  * Serialize song content for database storage
@@ -54,12 +56,9 @@ export function generateChordId(): string {
  * Calculate CSS position from chord data
  */
 export function getChordPosition(chord: Chord): { top: number; left: number } {
-    const lineHeight = 24; // matches leading-relaxed
-    const charWidth = 8.4; // approximate monospace char width
-
     return {
-        top: chord.line * lineHeight,
-        left: chord.position * charWidth
+        top: chord.line * LINE_HEIGHT,
+        left: chord.position * CHAR_WIDTH
     };
 }
 
@@ -73,11 +72,8 @@ export function calculateChordFromDrop(
     const x = e.clientX - containerRect.left;
     const y = e.clientY - containerRect.top;
 
-    const lineHeight = 24;
-    const charWidth = 8.4;
-
     return {
-        line: Math.max(0, Math.floor(y / lineHeight)),
-        position: Math.max(0, Math.round(x / charWidth))
+        line: Math.max(0, Math.floor(y / LINE_HEIGHT)),
+        position: Math.max(0, Math.round(x / CHAR_WIDTH))
     };
 }
