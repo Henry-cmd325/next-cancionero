@@ -6,12 +6,11 @@ import { Chord } from '../utils/chordUtils';
 type ChordBadgeProps = {
     chord: Chord;
     onDelete: (id: string) => void;
-    onMove?: (id: string, line: number, position: number) => void;
     isDraggable?: boolean;
     className?: string;
 };
 
-export function ChordBadge({ chord, onDelete, onMove, isDraggable = true, className = '' }: ChordBadgeProps) {
+export function ChordBadge({ chord, onDelete, isDraggable = true, className = '' }: ChordBadgeProps) {
     const [isHovered, setIsHovered] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
 
