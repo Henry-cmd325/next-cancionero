@@ -30,7 +30,7 @@ const COMMON_CHORDS: ChordDiagramData[] = [
 ];
 
 type ChordItemProps = {
-    chord: Chord;
+    chord: ChordDiagramData;
     onDragStart: (chordName: string) => void;
 };
 
@@ -50,7 +50,7 @@ function ChordItem({ chord, onDragStart }: ChordItemProps) {
 }
 
 type ChordDiagramProps = {
-    chord: Chord;
+    chord: ChordDiagramData;
 };
 
 function ChordDiagram({ chord }: ChordDiagramProps) {

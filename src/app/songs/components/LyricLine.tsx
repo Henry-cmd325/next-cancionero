@@ -47,10 +47,10 @@ export function LyricLine({
 
     return (
         <div
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            onDragOver={handleDragOver}
-            onDrop={handleDrop}
+            onMouseEnter={() => isChordMode && setIsHovered(true)}
+            onMouseLeave={() => isChordMode && setIsHovered(false)}
+            onDragOver={isChordMode ? handleDragOver : undefined}
+            onDrop={isChordMode ? handleDrop : undefined}
             className={`
                 relative py-1 px-3 -mx-3 rounded-md transition-all
                 ${isChordMode && isHovered ? 'border-2 border-dashed border-slate-600 bg-slate-800/20' : 'border-2 border-transparent'}
@@ -70,7 +70,7 @@ export function LyricLine({
                         <ChordBadge
                             chord={chord}
                             onDelete={onDeleteChord}
-                            isDraggable={false}
+                            isDraggable={isChordMode}
                         />
                     </div>
                 ))}

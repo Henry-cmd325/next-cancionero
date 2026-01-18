@@ -93,22 +93,21 @@ export function SongView({ song, isInitialEdit = false }: SongViewProps) {
     // Render content based on mode
     const renderContent = () => {
         if (mode === 'view') {
-            // Allow typical chord notation characters and ensure there's at least one chord root.
-            const chordContentPattern = /^[\sA-Ga-g#♭b0-9/()+majminsusadddimaug°øM]+$/;
-            const chordRootPattern = /[A-Ga-g](?:#|b|♭)?/;
             const lines = lyrics.split('\n');
             return (
-                <div className="font-mono text-sm leading-relaxed whitespace-pre-wrap">
-                    {lines.map((line, i) => {
-                        const isChordLine =
-                            chordContentPattern.test(line) &&
-                            chordRootPattern.test(line) &&
-                            line.trim().length > 0;
-                        if (isChordLine) {
-                            return <div key={i} className="text-blue-400 font-bold">{line}</div>;
-                        }
-                        return <div key={i} className="text-slate-300">{line}</div>;
-                    })}
+                <div className="relative min-h-[450px] font-mono text-sm leading-relaxed space-y-1">
+                    {lines.map((line, i) => (
+                        <LyricLine
+                            key={i}
+                            lineIndex={i}
+                            text={line}
+                            chords={chords}
+                            onDeleteChord={handleDeleteChord}
+                            onDropChord={handleDropChord}
+                            isChordMode={false}
+                            draggedChord={null}
+                        />
+                    ))}
                 </div>
             );
         }
