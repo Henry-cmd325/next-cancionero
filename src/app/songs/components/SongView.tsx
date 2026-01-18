@@ -57,14 +57,19 @@ export function SongView({ song, isInitialEdit = false }: SongViewProps) {
         data.append('content', serializeContent(lyrics, chords));
         data.append('key', formData.key);
 
-        if (song?.id) {
-            // Edit existing song
-            await updateSong(song.id, data);
-            setMode('view');
-        } else {
-            // Create new song
-            const newSong = await createSong(data);
-            router.push(`/songs/${newSong.id}`);
+        try {
+            if (song?.id) {
+                // Edit existing song
+                await updateSong(song.id, data);
+                setMode('view');
+            } else {
+                // Create new song
+                const newSong = await createSong(data);
+                router.push(`/songs/${newSong.id}`);
+            }
+        } catch (error) {
+            console.error('Error al guardar la canción:', error);
+            alert('Ocurrió un error al guardar la canción. Por favor, inténtalo de nuevo.');
         }
     };
 
