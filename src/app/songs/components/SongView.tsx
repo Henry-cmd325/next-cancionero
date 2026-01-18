@@ -1,6 +1,6 @@
 'use client';
 
-import { updateSong } from '@/app/actions';
+import { updateSong } from '@/app/songs/actions';
 import { useState } from 'react';
 import Link from 'next/link';
 

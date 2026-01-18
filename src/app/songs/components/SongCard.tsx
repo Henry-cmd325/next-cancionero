@@ -1,6 +1,6 @@
 'use client';
 
-import { deleteSong } from '@/app/actions';
+import { deleteSong } from '@/app/songs/actions';
 import { useTransition } from 'react';
 import Link from 'next/link';
 
@@ -46,7 +46,7 @@ export function SongCard({ id, title, artist, content, songKey }: SongProps) {
                         startTransition(() => deleteSong(id));
                     }}
                     disabled={isPending}
-                    className="px-3 py-1.5 rounded-md text-red-400 hover:text-red-300 hover:bg-red-900/20 transition-colors disabled:opacity-50"
+                    className="px-3 py-1.5 rounded-md text-red-400 hover:cursor-pointer hover:text-red-300 hover:bg-red-900/20 transition-colors disabled:opacity-50"
                 >
                     {isPending ? '...' : 'Borrar'}
                 </button>

@@ -1,4 +1,4 @@
-import { createSong } from '@/app/actions';
+import { createSong } from '@/app/songs/actions';
 import { redirect } from 'next/navigation';
 
 export default function AddSongPage() {

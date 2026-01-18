@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma';
-import { SongCard } from '@/components/SongCard';
+import { SongCard } from '@/app/songs/components/SongCard';
 import Link from 'next/link';
 import { Metadata } from 'next';
 

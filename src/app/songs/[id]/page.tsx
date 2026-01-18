@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma';
-import { SongView } from '@/components/SongView';
+import { SongView } from '@/app/songs/components/SongView';
 import { notFound } from 'next/navigation';
 
 type PageProps = {
