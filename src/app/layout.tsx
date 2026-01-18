@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={`${inter.variable} ${firaCode.variable} font-sans antialiased bg-[#0B0E14] text-slate-200 h-screen overflow-hidden selection:bg-blue-500/30`}>
+      <body className={`${inter.variable} ${firaCode.variable} font-sans antialiased bg-[#0B0E14] text-slate-200 min-h-screen selection:bg-blue-500/30`}>
         <div className="flex h-full">
           <Sidebar />
           <main className="flex-1 ml-64 h-full relative overflow-hidden">

@@ -2,14 +2,14 @@
 
 import { useState } from 'react';
 
-type Chord = {
+type ChordDiagramData = {
     name: string;
     positions: number[]; // Fret positions for 6 strings (E A D G B e), -1 = muted, 0 = open
     fingers: number[];   // Finger numbers (0 = open, 1-4 = fingers)
     baseFret?: number;   // Starting fret for barre chords
 };
 
-const COMMON_CHORDS: Chord[] = [
+const COMMON_CHORDS: ChordDiagramData[] = [
     { name: 'C', positions: [-1, 3, 2, 0, 1, 0], fingers: [0, 3, 2, 0, 1, 0] },
     { name: 'D', positions: [-1, -1, 0, 2, 3, 2], fingers: [0, 0, 0, 1, 3, 2] },
     { name: 'E', positions: [0, 2, 2, 1, 0, 0], fingers: [0, 2, 3, 1, 0, 0] },

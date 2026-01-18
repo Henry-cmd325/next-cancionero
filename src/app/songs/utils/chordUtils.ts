@@ -49,7 +49,7 @@ export function deserializeContent(content: string): SongContent {
  * Generate unique ID for chords
  */
 export function generateChordId(): string {
-    return `chord_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    return `chord_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
 }
 
 /**
