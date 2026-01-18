@@ -47,7 +47,7 @@ export function SongView({ song, isInitialEdit = false }: SongViewProps) {
 
     const handleSave = async () => {
         if (!formData.title || !formData.artist || !lyrics) {
-            alert('Por favor completa los campos requeridos (Título, Artista y Letra)');
+            console.error('Por favor completa los campos requeridos (Título, Artista y Letra)');
             return;
         }
 
