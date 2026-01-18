@@ -18,12 +18,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={`${inter.variable} ${firaCode.variable} font-sans antialiased bg-[#0B0E14] text-slate-200 min-h-screen selection:bg-blue-500/30`}>
-        <div className="flex min-h-screen">
+      <body className={`${inter.variable} ${firaCode.variable} font-sans antialiased bg-[#0B0E14] text-slate-200 h-screen overflow-hidden selection:bg-blue-500/30`}>
+        <div className="flex h-full">
           <Sidebar />
-          <main className="flex-1 ml-64 p-8 lg:p-12">
-            <div className="max-w-6xl mx-auto">
-              {children}
+          <main className="flex-1 ml-64 h-full relative overflow-hidden">
+            <div className="h-full w-full p-8 lg:p-12 overflow-y-auto">
+              <div className="max-w-6xl mx-auto h-full">
+                {children}
+              </div>
             </div>
           </main>
         </div>
