@@ -123,9 +123,14 @@ export function SongView({ song, isInitialEdit = false }: SongViewProps) {
             );
         }
 
-        const lines = lyrics.split('\n');
+        const lines = lyrics.trim().split('\n');
+
         return (
             <div className="relative min-h-[450px] font-mono text-sm leading-relaxed space-y-1">
+                {lines.length === 0 && (
+                    <p className="text-slate-500">Debes escribir al menos una línea de letra para poder agregar acordes.</p>
+                )}
+
                 {lines.map((line, i) => (
                     <LyricLine
                         key={i}

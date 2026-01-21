@@ -40,7 +40,44 @@ export function LyricLine({
 
         const rect = e.currentTarget.getBoundingClientRect();
         const x = e.clientX - rect.left;
-        const position = Math.round(x / CHAR_WIDTH);
+        let position = Math.round(x / CHAR_WIDTH);
+
+        // 1. Initial restriction: Only allow placing chords up to 2 characters after the text end,
+        // unless there's an existing chord nearby.
+        const textEnd = text.length;
+        const buffer = 2;
+        const maxChordPosition = lineChords.reduce((max, c) => Math.max(max, c.position), 0);
+        const allowedLimit = Math.max(textEnd + buffer, maxChordPosition + 3);
+
+        if (position > allowedLimit) {
+            position = allowedLimit;
+        }
+        if (position < 0) position = 0;
+
+        // 2. Overlap Prevention: Ensure chords don't overlap.
+        // We assume each chord needs its name length + 1 space.
+        const newChordWidth = draggedChord.length + 1;
+        const sortedChords = [...lineChords].sort((a, b) => a.position - b.position);
+
+        let isOverlapping = true;
+        let safetyCounter = 0;
+
+        while (isOverlapping && safetyCounter < 50) {
+            isOverlapping = false;
+            for (const chord of sortedChords) {
+                const chordWidth = chord.name.length + 1;
+                // Check intersection of [position, position + newChordWidth] and [chord.position, chord.position + chordWidth]
+                const overlaps = (position < chord.position + chordWidth) && (chord.position < position + newChordWidth);
+
+                if (overlaps) {
+                    // Move after the overlapping chord
+                    position = chord.position + chordWidth;
+                    isOverlapping = true;
+                    break;
+                }
+            }
+            safetyCounter++;
+        }
 
         onDropChord(lineIndex, position, draggedChord);
     };
